@@ -5,9 +5,9 @@ VALUES
 ('Billing'), 
 ('Human Resources'), 
 ('Sales'),
-(`Reception`),
-(`Records`),
-(`Mail Room`);
+('Reception'),
+('Records'),
+('Mail Room');
 
 
 INSERT INTO `role`(title, salary, department_id)
@@ -16,8 +16,8 @@ VALUES
 ('Human Resources Agent', 50000, 2), 
 ('Sales Agent', 60000, 3),
 ('Receptionist', 30000, 4),
-('Bookkeeper', 35000, 5)
-('Mail Clerk', 25000, 6)
+('Bookkeeper', 35000, 5),
+('Mail Clerk', 25000, 6);
 
 INSERT INTO employee(first_name, last_name, role_id, manager_id)
 VALUES
@@ -26,5 +26,5 @@ VALUES
 ('Chris', 'Rock', 3, 2),
 ('Adam', 'Sandler', 4, 2), 
 ('Tom', 'Hanks', 6, 4),
-('Johnny Depp', 5, 3);
+('Johnny', 'Depp', 5, 3);
 

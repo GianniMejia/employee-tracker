@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "type": "module",
   "scripts": {
     "schema": "mysql -u root -ppassword < ./db/schema.sql",
     "seeds": "npm run schema && mysql -u root -ppassword < ./db/seeds.sql",
@@ -17,5 +18,10 @@
   "bugs": {
     "url": "https://github.com/GianniMejia/employee-tracker/issues"
   },
-  "homepage": "https://github.com/GianniMejia/employee-tracker#readme"
+  "homepage": "https://github.com/GianniMejia/employee-tracker#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^9.1.0",
+    "mysql2": "^2.3.3"
+  }
 }
