@@ -16,7 +16,9 @@ async function start() {
   // connects to sql server and sql database
   await connection.connect();
 
-  await options();
+  while (true) {
+    await options();
+  }
 
   // prompts user with list of options to choose from
   async function options() {
@@ -207,5 +209,64 @@ async function start() {
         answer.manager.split(" ")[1],
       ]
     );
+  }
+
+  async function updateRole() {
+    const answer = await inquirer.prompt([
+      {
+        name: "name",
+        type: "input",
+        message: "Enter an employee to update: ",
+      },
+      {
+        name: "newRole",
+        type: "input",
+        message: "Enter their new role: ",
+      },
+    ]);
+
+    await connection.query(
+      `
+      UPDATE 
+        employee
+      SET
+        role_id = (SELECT id FROM role WHERE title = ?)
+      WHERE
+        first_name = ? AND last_name = ?
+    `,
+      [answer.newRole, answer.name.split(" ")[0], answer.name.split(" ")[1]]
+    );
+  }
+
+  async function deleteEmployee() {
+    try {
+      const answer = await inquirer.prompt([
+        {
+          name: "name",
+          type: "input",
+          message: "Enter an employee to delete: ",
+        },
+      ]);
+
+      await connection.query(
+        `
+      DELETE FROM 
+        employee
+      WHERE
+        first_name = ? AND last_name = ?
+    `,
+        [answer.name.split(" ")[0], answer.name.split(" ")[1]]
+      );
+    } catch (error) {
+      if (error.errno == 1451) {
+        console.log("Error: Cannot delete a manager.");
+      } else {
+        console.log(error);
+      }
+    }
+  }
+
+  async function exitApp() {
+    process.exit();
   }
 }
